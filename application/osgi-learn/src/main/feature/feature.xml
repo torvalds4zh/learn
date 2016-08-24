@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" name="wbg.space">
+    <!--<feature name="osgi-learn" version="${project.version}">-->
+        <!--<feature>http</feature>-->
+        <!--<feature>cxf</feature>-->
+
+        <!--<feature>camel-core</feature>-->
+        <!--<feature>camel-blueprint</feature>-->
+        <!--<feature>camel-jackson</feature>-->
+        <!--<feature>camel-cxf</feature>-->
+
+        <!--<bundle>mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/2.4.3</bundle>-->
+        <!--<bundle>mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/2.4.3</bundle>-->
+
+        <!--<bundle start-level="100">mvn:${project.groupId}/osgi-learn/${project.version}</bundle>-->
+    <!--</feature>-->
+</features>
