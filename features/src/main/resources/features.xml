@@ -17,6 +17,6 @@
         <bundle>mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/2.4.3</bundle>
         <bundle>mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/2.4.3</bundle>
 
-        <bundle>mvn:${project.groupId}/osgi-learn/${project.version}</bundle>
+        <bundle start-level="100">mvn:${project.groupId}/osgi-learn/${project.version}</bundle>
     </feature>
 </features>

@@ -65,7 +65,7 @@
                     <instructions>
                         <Private-Package>cn.com.command.*</Private-Package>
                         <Import-Package>*</Import-Package>
-                        <Bundle-Activator>com.weibangong.osgi.felix.Activator</Bundle-Activator>
+                        <Bundle-Activator>com.weibangong.osgi.felix.TrackerActivator</Bundle-Activator>
                     </instructions>
                 </configuration>
             </plugin>

@@ -7,8 +7,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by chenbo on 16/8/22.
  */
-public class Activator implements BundleActivator, ServiceListener {
-    private static Logger logger = LoggerFactory.getLogger(Activator.class);
+public class FirstActivator implements BundleActivator, ServiceListener {
     public void start(BundleContext bundleContext) throws Exception {
         System.out.println("Starting to listen for service events.");
         bundleContext.addServiceListener(this);
