@@ -123,7 +123,7 @@
             <version>${karaf.version}</version>
             <classifier>features</classifier>
             <type>xml</type>
-            <scope>runtime</scope>
+            <!--<scope>runtime</scope>-->
         </dependency>
         <dependency>
             <groupId>org.apache.karaf.features</groupId>
@@ -184,9 +184,169 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>assembly</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-resources-plugin</artifactId>
+                            <extensions>true</extensions>
+                            <executions>
+                                <execution>
+                                    <id>copy-resources</id>
+                                    <phase>install</phase>
+                                    <goals>
+                                        <goal>copy-resources</goal>
+                                    </goals>
+                                    <configuration>
+                                        <outputDirectory>target/assembly</outputDirectory>
+                                        <overwrite>true</overwrite>
+                                        <resources>
+                                            <resource>
+                                                <directory>../../assembly/container</directory>
+                                                <filtering>true</filtering>
+                                            </resource>
+                                            <resource>
+                                                <directory>src/main/assembly</directory>
+                                                <filtering>false</filtering>
+                                            </resource>
+                                            <resource>
+                                                <directory>src/main/filtered-assembly</directory>
+                                                <filtering>true</filtering>
+                                            </resource>
+                                        </resources>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.karaf.tooling</groupId>
+                            <artifactId>karaf-maven-plugin</artifactId>
+                            <version>${karaf.version}</version>
+                            <extensions>true</extensions>
+                            <executions>
+                                <execution>
+                                    <id>process-resources</id>
+                                    <phase>verify</phase>
+                                    <goals>
+                                        <goal>assembly</goal>
+                                    </goals>
+                                </execution>
+                                <execution>
+                                    <id>add-feature-repository</id>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>features-add-to-repository</goal>
+                                    </goals>
+                                </execution>
+                                <execution>
+                                    <id>package</id>
+                                    <phase>install</phase>
+                                    <goals>
+                                        <goal>archive</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                            <configuration>
+                                <startupFeatures>
+                                    <feature>eventadmin</feature>
+                                </startupFeatures>
+                                <karafDirectory>${project.build.directory}/assembly</karafDirectory>
+                                <startSsh>true</startSsh>
+                                <keepRunning>true</keepRunning>
+                                <deployProjectArtifact>false</deployProjectArtifact>
+                                <includeBuildOutputDirectory>false</includeBuildOutputDirectory>
+                                <includeProjectArtifact>true</includeProjectArtifact>
+                                <includeTransitiveDependency>true</includeTransitiveDependency>
+                                <includeHelpOption>true</includeHelpOption>
+                                <archiveZip>false</archiveZip>
+                                <descriptors />
+                                <bootRepositories>
+                                    <bootRepository>
+                                        mvn:${project.groupId}/${project.artifactId}/${project.version}/xml/features
+                                    </bootRepository>
+                                </bootRepositories>
+                                <bootFeatures>
+                                    <feature>wrap</feature>
+                                    <feature>config</feature>
+                                    <feature>system</feature>
+                                    <feature>package</feature>
+                                    <feature>shell</feature>
+                                    <feature>shell-compat</feature>
+                                    <feature>feature</feature>
+                                    <feature>deployer</feature>
+                                    <feature>ssh</feature>
+                                    <feature>log</feature>
+                                    <feature>bundle</feature>
+                                    <feature>${project.artifactId}</feature>
+                                </bootFeatures>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>wagon-maven-plugin</artifactId>
+                            <version>1.0</version>
+                            <executions>
+                                <execution>
+                                    <id>assembly-uploader</id>
+                                    <phase>install</phase>
+                                    <goals>
+                                        <goal>upload</goal>
+                                    </goals>
+                                    <configuration>
+                                        <fromDir>${project.basedir}/target</fromDir>
+                                        <includes>*.tar.gz</includes>
+                                        <url>ftp://package.wbg.space</url>
+                                        <toDir>assembly</toDir>
+                                        <serverId>wbg-assembly</serverId>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                            <!--<dependencies>-->
+                                <!--<dependency>-->
+                                    <!--<groupId>org.apache.maven.wagon</groupId>-->
+                                    <!--<artifactId>wagon-ftp</artifactId>-->
+                                    <!--<version>2.10</version>-->
+                                <!--</dependency>-->
+                            <!--</dependencies>-->
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/filtered-resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
+
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-maven-plugin</artifactId>
+                    <version>${camel.version}</version>
+                    <configuration>
+                        <useBlueprint>true</useBlueprint>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
@@ -202,12 +362,10 @@
                                 <outputDirectory>target/assembly</outputDirectory>
                                 <overwrite>true</overwrite>
                                 <resources>
-                                    <!--指定全局的配置文件位置-->
                                     <resource>
                                         <directory>../../assembly/develop</directory>
                                         <filtering>false</filtering>
                                     </resource>
-                                    <!--指定每一个module单独的配置文件-->
                                     <resource>
                                         <directory>src/test/resources</directory>
                                         <filtering>false</filtering>
@@ -238,21 +396,32 @@
                     <extensions>true</extensions>
                     <executions>
                         <execution>
+                            <id>process-feature</id>
+                            <phase>process-classes</phase>
+                            <goals>
+                                <goal>features-generate-descriptor</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>add-feature-repository</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>features-add-to-repository</goal>
+                            </goals>
+                        </execution>
+                        <execution>
                             <id>process-resources</id>
                             <phase>verify</phase>
                             <goals>
                                 <goal>assembly</goal>
                             </goals>
                         </execution>
-                        <execution>
-                            <id>package</id>
-                            <phase>install</phase>
-                            <goals>
-                                <goal>archive</goal>
-                            </goals>
-                        </execution>
                     </executions>
+
                     <configuration>
+                        <startupFeatures>
+                            <feature>eventadmin</feature>
+                        </startupFeatures>
                         <karafDirectory>${project.build.directory}/assembly</karafDirectory>
                         <startSsh>true</startSsh>
                         <keepRunning>true</keepRunning>
@@ -261,6 +430,12 @@
                         <includeProjectArtifact>true</includeProjectArtifact>
                         <includeTransitiveDependency>true</includeTransitiveDependency>
                         <includeHelpOption>true</includeHelpOption>
+                        <descriptors />
+                        <bootRepositories>
+                            <bootRepository>
+                                mvn:${project.groupId}/${project.artifactId}/${project.version}/xml/features
+                            </bootRepository>
+                        </bootRepositories>
                         <bootFeatures>
                             <feature>wrap</feature>
                             <feature>config</feature>
@@ -269,13 +444,17 @@
                             <feature>shell</feature>
                             <feature>shell-compat</feature>
                             <feature>feature</feature>
-                            <feature>deployer</feature>
+                            <feature>bundle</feature>
                             <feature>ssh</feature>
                             <feature>log</feature>
-                            <feature>bundle</feature>
                             <feature>${project.artifactId}</feature>
                         </bootFeatures>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>wagon-maven-plugin</artifactId>
+                    <version>1.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -290,6 +469,41 @@
                         <goals>
                             <goal>install</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>copy-branding</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/assembly/lib/ext/</outputDirectory>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>wbg.space.serve</groupId>
+                                    <artifactId>branding</artifactId>
+                                    <version>1.2.30</version>
+                                    <!--<version>${project.version}</version>-->
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>javax.mail</groupId>
+                                    <artifactId>javax.mail-api</artifactId>
+                                    <version>1.5.5</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>com.sun.mail</groupId>
+                                    <artifactId>javax.mail</artifactId>
+                                    <version>1.5.5</version>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

@@ -13,9 +13,11 @@
         <module>weka-learn</module>
         <module>spark-learn</module>
         <module>lucene-learn</module>
-        <module>application/osgi-learn</module>
         <module>parent</module>
         <module>features</module>
+        <module>application/osgi-learn</module>
+        <module>application/pusher</module>
+        <module>application/handler</module>
     </modules>
 
     <properties>

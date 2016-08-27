@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" name="handler">
+    <feature name="handler" description="handler" version="1.0.0.SNAPSHOT">
+        <bundle>mvn:com.weibangong.learn/handler/1.0-SNAPSHOT</bundle>
+    </feature>
+</features>

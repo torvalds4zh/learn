@@ -1,5 +1,0 @@
-Bundle-Name: Dynamic dictionary client
-Bundle-Description: A bundle that uses the dictionary service whenever it becomes available
-Bundle-Vendor: Apache Felix
-Bundle-Version: 1.0.0
-Bundle-Activator: com.weibangong.osgi.felix.TrackerActivator
