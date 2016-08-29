@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>activiti-learn</module>
+        <module>mq-learn</module>
         <module>weka-learn</module>
         <module>spark-learn</module>
         <module>lucene-learn</module>
@@ -18,6 +19,7 @@
         <module>application/osgi-learn</module>
         <module>application/pusher</module>
         <module>application/handler</module>
+        <module>application/camel-learn</module>
     </modules>
 
     <properties>
@@ -86,6 +88,7 @@
                 <version>${org.slf4j.version}</version>
                 <scope>test</scope>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -102,6 +105,12 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
         </dependency>
     </dependencies>
 
