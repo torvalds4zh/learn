@@ -42,8 +42,11 @@ spark-learn/target/
 weka-learn/target/
 parent/target/
 features/target/
+mq-learn/target/
 application/osgi-learn/target/
-
+application/camel-learn/target
+application/pusher/target
+application/handler/target
 
 *.ipr
 *.iws

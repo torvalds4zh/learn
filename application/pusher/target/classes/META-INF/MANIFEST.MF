@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1472278937801
+Bnd-LastModified: 1472543748498
 Build-Jdk: 1.7.0_79
 Built-By: haizhi
 Bundle-Activator: com.weibangong.osgi.felix.PusherActivator

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+  <!-- Enable bridge between Camel Property Placeholder and Spring Property placeholder so we can use system properties
+       to dynamically set the port number for unit testing the example.  -->
+  <bean id="bridgePropertyPlaceholder" class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer"/>
+    
+  <camel:camelContext id="cxfrs_context">
+    <camel:package>org.apache.camel.example.cxf.jaxrs</camel:package>
+  </camel:camelContext>
+
+</beans>

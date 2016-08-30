@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    ">
+
+  <!-- Enable bridge between Camel Property Placeholder and Spring Property placeholder so we can use system properties
+       to dynamically set the port number for unit testing the example.  -->
+  <bean id="bridgePropertyPlaceholder" class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer"/>
+  
+
+  <!--
+  If you want to run this example in a Tomcat container which needs the servlet transport,
+  please replace the cxf-extension-http-jetty.xml with cxf-servlet.xml
+  -->
+
+  <bean id="testBean" class="org.apache.camel.example.cxf.provider.TesterBean"/>
+
+  <cxf:cxfEndpoint id="soapMessageEndpoint"
+                   serviceClass="org.apache.camel.example.cxf.provider.GreeterProvider"
+                   address="http://localhost:{{port}}/GreeterContext/SOAPMessageService"
+                   wsdlURL="wsdl/hello_world.wsdl"
+                   endpointName="s:SoapOverHttpRouter"
+                   serviceName="s:SOAPService"
+                   xmlns:s="http://apache.org/hello_world_soap_http"/>
+
+
+  <camelContext id="test_context" xmlns="http://camel.apache.org/schema/spring">
+    <route>
+      <from uri="cxf:bean:soapMessageEndpoint"/>
+      <to uri="bean:testBean?method=processSOAP"/>
+    </route>
+  </camelContext>
+
+  <!-- END SNIPPET: example -->
+
+</beans>
