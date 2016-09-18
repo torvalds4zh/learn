@@ -1,0 +1,3 @@
+com/weibangong/mybatis/model/User.class
+com/weibangong/mybatis/test/MyBatisFirstTest.class
+com/weibangong/mybatis/mapper/UserMapper.class
