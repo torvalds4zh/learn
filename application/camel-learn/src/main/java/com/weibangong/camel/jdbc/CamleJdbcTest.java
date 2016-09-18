@@ -9,7 +9,9 @@ import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by chenbo on 16/8/30.
@@ -32,5 +34,13 @@ public class CamleJdbcTest extends CamelSpringTestSupport {
             String body = receive.getIn().getBody(String.class);
             System.out.println("consume " + body);
         }
+    }
+
+    @Test
+    public void testaa(){
+        Set<Integer> abd = new HashSet<Integer>();
+        abd.add(1);
+        abd.add(2);
+        System.out.println(abd);
     }
 }

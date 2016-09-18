@@ -7,7 +7,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * Created by chenbo on 16/8/30.
  */
-@Path("/hello")
+@Path("/")
 public interface HelloService {
 
     @GET
@@ -15,7 +15,7 @@ public interface HelloService {
     @Produces(MediaType.APPLICATION_JSON)
     String hello();
 
-    @Path("/{name}")
+    @Path("/hello/{name}")
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
