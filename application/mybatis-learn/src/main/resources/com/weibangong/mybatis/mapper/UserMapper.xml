@@ -5,7 +5,7 @@
     <resultMap id="BaseResultMap" type="com.weibangong.mybatis.model.User">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="created_at" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="created_at" jdbcType="TIMESTAMP" typeHandler="com.weibangong.mybatis.handler.FracSecsDateHandler" property="createTime"/>
         <result column="updated_at" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
 
@@ -15,7 +15,7 @@
         id, name, created_at, updated_at
         )
         values(
-        #{id,jdbcType=BIGINT}, #{name, jdbcType=VARCHAR}, #{createTime, jdbcType=TIMESTAMP}, #{updateTime, jdbcType=TIMESTAMP}
+        #{id,jdbcType=BIGINT}, #{name, jdbcType=VARCHAR}, #{createTime, jdbcType=TIMESTAMP, typeHandler=com.weibangong.mybatis.handler.FracSecsDateHandler}, #{updateTime, jdbcType=TIMESTAMP}
         )
     </insert>
 </mapper>

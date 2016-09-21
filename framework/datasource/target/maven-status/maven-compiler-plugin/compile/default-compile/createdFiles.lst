@@ -1,0 +1,9 @@
+com/weibangong/framework/datasource/command/DataSourceInstances.class
+com/weibangong/framework/datasource/internal/BundleClassLoaderDataSourceFactory.class
+com/weibangong/framework/datasource/Activator.class
+com/weibangong/framework/datasource/command/DataSourcePing.class
+com/weibangong/framework/datasource/internal/DatasourceTracker.class
+com/weibangong/framework/datasource/command/DataSourceProperties.class
+com/weibangong/framework/datasource/DatasourceConstants.class
+com/weibangong/framework/datasource/internal/DatasourceContainer.class
+com/weibangong/framework/datasource/BundleClassLoaderDataSource.class

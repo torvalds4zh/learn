@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" name="micro-registrant">
+    <feature name="micro-registrant" description="framework :: micro registrant" version="1.0.0.SNAPSHOT">
+        <bundle>mvn:com.weibangong.learn/micro-registrant/1.0-SNAPSHOT</bundle>
+    </feature>
+</features>

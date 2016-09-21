@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weibangong.message.transfer.mapper.DocumentMapper">
+
+    <insert id="insert" parameterType="com.weibangong.message.transfer.api.Document" useGeneratedKeys="true" keyProperty="id">
+        insert into t_document (id, tenant_id, created_by_id,
+        created_at, updated_by_id, updated_at,
+        version, status, source_id, source_type,
+        target_id, target_type, carrier_id, carrier_type,
+        file_meta_data)
+        values (#{id,jdbcType=BIGINT}, #{tenantId,jdbcType=BIGINT}, #{createdById,jdbcType=BIGINT},
+        #{createdAt,jdbcType=BIGINT}, #{updatedById,jdbcType=BIGINT}, #{updatedAt,jdbcType=BIGINT},
+        #{version,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, #{sourceId,jdbcType=BIGINT},
+        #{sourceType,jdbcType=INTEGER}, #{targetId,jdbcType=BIGINT}, #{targetType,jdbcType=INTEGER},
+        #{carrierId,jdbcType=BIGINT}, #{carrierType,jdbcType=INTEGER}, #{fileMetaData,jdbcType=VARCHAR})
+    </insert>
+
+</mapper>

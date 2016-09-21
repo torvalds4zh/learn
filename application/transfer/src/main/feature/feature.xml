@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" name="${project.groupId}-${project.artifactId}">
+    <feature name="${project.artifactId}" description="${project.name}" version="${project.version}">
+
+        <feature>configadmin</feature>
+        <feature>datasource</feature>
+        <feature>mybatis-blueprint</feature>
+        <feature>msg-client</feature>
+        <feature>auth-interceptor</feature>
+
+        <feature>camel-blueprint</feature>
+        <feature>camel-mqtt</feature>
+        <feature>camel-rabbitmq</feature>
+        <feature>camel-mybatis</feature>
+
+        <bundle>mvn:redis.clients/jedis/2.7.2</bundle>
+        <bundle>mvn:com.google.guava/guava/19.0</bundle>
+    </feature>
+</features>

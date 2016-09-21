@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1474455035862
+Build-Jdk: 1.8.0_51
+Built-By: haizhi
+Bundle-Activator: com.weibangong.framework.config.Activator
+Bundle-ManifestVersion: 2
+Bundle-Name: framework :: micro config
+Bundle-SymbolicName: com.weibangong.learn.micro-config
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.weibangong.framework.config;version="1.0.0";uses:="o
+ rg.osgi.framework"
+Import-Package: org.osgi.framework;version="[1.7,2)",org.slf4j;version="
+ [1.7,2)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-3.0.0.201509101326

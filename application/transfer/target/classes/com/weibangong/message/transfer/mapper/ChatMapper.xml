@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weibangong.message.transfer.mapper.ChatMapper">
+    <resultMap id="BaseResultMap" type="com.weibangong.message.transfer.model.Chat">
+        <id column="source_id" jdbcType="BIGINT" property="sourceId"/>
+        <id column="target_id" jdbcType="BIGINT" property="targetId"/>
+        <result column="tenant_id" jdbcType="BIGINT" property="tenantId"/>
+        <result column="target_type" jdbcType="INTEGER" property="targetType"/>
+        <result column="pinned" jdbcType="BIT" property="pinned"/>
+        <result column="notify" jdbcType="BIT" property="notify"/>
+        <result column="bloked" jdbcType="BIT" property="bloked"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="version" jdbcType="BIGINT" property="version"/>
+        <result column="unread" jdbcType="INTEGER" property="unread"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.weibangong.message.transfer.model.Chat">
+        insert into t_chat
+        (
+        source_id, target_id, tenant_id, target_type, pinned, notify, bloked, status,
+        version, unread, created_time, update_time
+        )
+        values
+        (
+        #{sourceId,jdbcType=BIGINT}, #{targetId,jdbcType=BIGINT}, #{tenantId,jdbcType=BIGINT},
+        #{targetType,jdbcType=INTEGER}, #{pinned,jdbcType=BIT}, #{notify,jdbcType=BIT},
+        #{bloked,jdbcType=BIT}, #{status,jdbcType=INTEGER}, #{version,jdbcType=BIGINT},
+        #{unread,jdbcType=INTEGER},#{createdTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.weibangong.message.transfer.model.Chat">
+        update t_chat
+        <set>
+            <if test="tenantId != null">
+                tenant_id = #{tenantId,jdbcType=BIGINT},
+            </if>
+            <if test="targetType != null">
+                target_type = #{targetType,jdbcType=INTEGER},
+            </if>
+            <if test="pinned != null">
+                pinned = #{pinned,jdbcType=BIT},
+            </if>
+            <if test="notify != null">
+                notify = #{notify,jdbcType=BIT},
+            </if>
+            <if test="bloked != null">
+                bloked = #{bloked,jdbcType=BIT},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="version != null">
+                version = #{version,jdbcType=BIGINT},
+            </if>
+            <!--<if test="unread != null">-->
+                <!--unread = #{unread,jdbcType=INTEGER},-->
+            <!--</if>-->
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where source_id = #{sourceId,jdbcType=BIGINT}
+        and target_id = #{targetId,jdbcType=BIGINT}
+        and status != 3
+    </update>
+
+    <update id="updateByPrimaryKeySelectiveAndIncUnread" parameterType="com.weibangong.message.transfer.model.Chat">
+        update t_chat
+        <set>
+            <if test="tenantId != null">
+                tenant_id = #{tenantId,jdbcType=BIGINT},
+            </if>
+            <if test="targetType != null">
+                target_type = #{targetType,jdbcType=INTEGER},
+            </if>
+            <if test="pinned != null">
+                pinned = #{pinned,jdbcType=BIT},
+            </if>
+            <if test="notify != null">
+                notify = #{notify,jdbcType=BIT},
+            </if>
+            <if test="bloked != null">
+                bloked = #{bloked,jdbcType=BIT},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="version != null">
+                version = #{version,jdbcType=BIGINT},
+            </if>
+            unread = unread + 1,
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where source_id = #{sourceId,jdbcType=BIGINT}
+        and target_id = #{targetId,jdbcType=BIGINT}
+        and status != 3
+    </update>
+
+    <update id="updateByTargetIdSelectiveAndIncUnread" parameterType="com.weibangong.message.transfer.model.Chat">
+        update t_chat
+        <set>
+            <if test="tenantId != null">
+                tenant_id = #{tenantId,jdbcType=BIGINT},
+            </if>
+            <if test="targetType != null">
+                target_type = #{targetType,jdbcType=INTEGER},
+            </if>
+            <if test="pinned != null">
+                pinned = #{pinned,jdbcType=BIT},
+            </if>
+            <if test="notify != null">
+                notify = #{notify,jdbcType=BIT},
+            </if>
+            <if test="bloked != null">
+                bloked = #{bloked,jdbcType=BIT},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="version != null">
+                version = #{version,jdbcType=BIGINT},
+            </if>
+            unread = unread + 1,
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where source_id != #{sourceId,jdbcType=BIGINT}
+        and target_id = #{targetId,jdbcType=BIGINT}
+        and status != 3
+    </update>
+
+</mapper>

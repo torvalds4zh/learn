@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1474455011513
+Build-Jdk: 1.8.0_51
+Built-By: haizhi
+Bundle-ManifestVersion: 2
+Bundle-Name: framework :: branding
+Bundle-SymbolicName: com.weibangong.learn.branding
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: org.apache.karaf.branding;version="1.0.0"
+Spring-Context: *;publish-context:=false
+Tool: Bnd-3.0.0.201509101326

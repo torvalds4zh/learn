@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" name="com.weibangong.learn-transfer">
+    <feature name="transfer" description="message :: transfer" version="1.0.0.SNAPSHOT">
+        <feature prerequisite="false" dependency="false">configadmin</feature>
+        <feature prerequisite="false" dependency="false">datasource</feature>
+        <feature prerequisite="false" dependency="false">mybatis-blueprint</feature>
+        <feature prerequisite="false" dependency="false">msg-client</feature>
+        <feature prerequisite="false" dependency="false">auth-interceptor</feature>
+        <feature prerequisite="false" dependency="false">camel-blueprint</feature>
+        <feature prerequisite="false" dependency="false">camel-mqtt</feature>
+        <feature prerequisite="false" dependency="false">camel-rabbitmq</feature>
+        <feature prerequisite="false" dependency="false">camel-mybatis</feature>
+        <bundle>mvn:redis.clients/jedis/2.7.2</bundle>
+        <bundle>mvn:com.google.guava/guava/19.0</bundle>
+        <bundle>mvn:com.weibangong.learn/transfer/1.0-SNAPSHOT</bundle>
+        <bundle>mvn:commons-codec/commons-codec/1.10</bundle>
+    </feature>
+</features>

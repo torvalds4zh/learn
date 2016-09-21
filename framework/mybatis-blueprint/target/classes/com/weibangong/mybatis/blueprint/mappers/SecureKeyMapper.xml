@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weibangong.mybatis.blueprint.mappers.SecureKeyMapper">
+
+    <cache size="102400" readOnly="true" />
+
+    <resultMap id="BaseResultMap" type="com.weibangong.mybatis.blueprint.model.SecureKey">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="key_index" jdbcType="BIGINT" property="keyIndex"/>
+        <result column="action" jdbcType="VARCHAR" property="action"/>
+        <result column="secret_key" jdbcType="VARCHAR" property="secretKey"/>
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.weibangong.mybatis.blueprint.model.SecureKey"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO secure_key (id, key_index, secret_key, created_at)
+        VALUES (#{id,jdbcType=BIGINT}, #{keyIndex,jdbcType=BIGINT}, #{secretKey,jdbcType=VARCHAR}, NOW())
+    </insert>
+
+</mapper>

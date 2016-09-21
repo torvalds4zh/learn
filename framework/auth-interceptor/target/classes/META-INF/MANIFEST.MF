@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1474455009629
+Build-Jdk: 1.8.0_51
+Built-By: haizhi
+Bundle-ManifestVersion: 2
+Bundle-Name: framework :: auth interceptor
+Bundle-SymbolicName: com.weibangong.learn.auth-interceptor
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.weibangong.framework.auth.interceptor;version="1.0.0
+ ";uses:="org.apache.cxf.interceptor,org.apache.cxf.message,org.apache.c
+ xf.phase",com.weibangong.framework.auth.interceptor.exception;version="
+ 1.0.0"
+Import-Package: com.weibangong.framework.auth.interceptor.exception;vers
+ ion="[1.0,2)",io.jsonwebtoken,javax.servlet.http;version="[3.1,4)",org.
+ apache.commons.lang3;version="[3.1,4)",org.apache.cxf.interceptor;versi
+ on="[3.1,4)",org.apache.cxf.message;version="[3.1,4)",org.apache.cxf.ph
+ ase;version="[3.1,4)",org.slf4j;version="[1.7,2)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-3.0.0.201509101326

@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: com.weibangong.learn.log4jKafkaAppender
+Built-By: haizhi
+Bundle-ManifestVersion: 2
+Bnd-LastModified: 1474455027136
+Embed-Dependency: *;scope=compile|runtime;inline=true
+Import-Package: javax.net.ssl
+Fragment-Host: org.ops4j.pax.logging.pax-logging-service
+Tool: Bnd-1.43.0
+Export-Package: org.apache.log4j.expand.kafka;version="1.0.0.SNAPSHOT"
+Bundle-Version: 1.0.0.SNAPSHOT
+Bundle-Name: framework :: log4j kafka appender
+Ignore-Package: java.applet,com.ibm.uvm.tools,javax.mail.internet,java
+ .beans,javax.swing.table,javax.sql,java.nio,java.util.zip,javax.xml.t
+ ransform.dom,java.lang.ref,org.osgi.service.event,java.util.regex,jav
+ a.net,org.ietf.jgss,javax.security.auth.callback,org.knopflerfish.ser
+ vice.log,net.jpountz.util,java.lang.reflect,java.security,org.xml.sax
+ .helpers,javax.xml.transform.sax,java.util.concurrent,javax.swing.tex
+ t,org.osgi.util.tracker,javax.xml.parsers,java.util.concurrent.locks,
+ org.osgi.framework,java.lang,org.ops4j.pax.logging,java.awt.event,jav
+ ax.swing.border,javax.swing.tree,javax.security.auth.kerberos,java.sq
+ l,java.util.logging,java.util,net.jpountz.lz4,javax.jms,java.lang.ann
+ otation,com.sun.jdmk.comm,javax.naming,java.nio.channels,java.nio.cha
+ rset,javax.security.sasl,javax.mail,org.xml.sax,javax.security.auth,n
+ et.jpountz.xxhash,org.osgi.service.log,java.math,org.slf4j.impl,org.w
+ 3c.dom,java.lang.management,org.osgi.framework.wiring,org.osgi.servic
+ e.cm,javax.management,java.util.concurrent.atomic,javax.swing.event,j
+ avax.xml.transform,java.awt,java.text,java.io,javax.xml.transform.str
+ eam,org.ops4j.pax.logging.spi,javax.jmdns,javax.security.auth.login,j
+ avax.swing
+Created-By: Apache Maven Bundle Plugin
+Build-Jdk: 1.8.0_51
+

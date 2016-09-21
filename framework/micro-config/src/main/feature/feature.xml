@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.4.0" name="${project.groupId}-${project.artifactId}">
+    <feature name="${project.artifactId}" description="${project.name}" version="${project.version}">
+        <bundle>mvn:org.apache.curator/curator-framework/2.10.0</bundle>
+        <bundle>mvn:org.apache.curator/curator-client/2.10.0</bundle>
+        <bundle>mvn:org.apache.zookeeper/zookeeper/${zookeeper.version}</bundle>
+        <bundle>mvn:io.netty/netty/3.7.0.Final</bundle>
+        <bundle>mvn:com.google.guava/guava/16.0.1</bundle>
+    </feature>
+</features>

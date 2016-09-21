@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1474455112419
+Build-Jdk: 1.8.0_51
+Built-By: haizhi
+Bundle-ManifestVersion: 2
+Bundle-Name: framework :: swagger ui
+Bundle-SymbolicName: com.weibangong.learn.swagger-ui
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Tool: Bnd-3.0.0.201509101326

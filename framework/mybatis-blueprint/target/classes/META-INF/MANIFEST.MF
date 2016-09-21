@@ -1,0 +1,34 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1474455103036
+Build-Jdk: 1.8.0_51
+Built-By: haizhi
+Bundle-ManifestVersion: 2
+Bundle-Name: framework :: mybatis-blueprint
+Bundle-SymbolicName: com.weibangong.learn.mybatis-blueprint
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.weibangong.mybatis.blueprint;version="1.0.0";uses:="
+ javax.sql,org.apache.ibatis.executor,org.apache.ibatis.mapping,org.apac
+ he.ibatis.plugin,org.apache.ibatis.reflection.factory,org.apache.ibatis
+ .reflection.wrapper,org.apache.ibatis.session,org.apache.ibatis.transac
+ tion,org.apache.ibatis.type,org.osgi.framework",com.weibangong.mybatis.
+ blueprint.interceptor;version="1.0.0";uses:="javax.sql,org.apache.ibati
+ s.executor,org.apache.ibatis.mapping,org.apache.ibatis.plugin,org.apach
+ e.ibatis.session",com.weibangong.mybatis.blueprint.annotations;version=
+ "1.0.0",com.weibangong.mybatis.blueprint.handler;version="1.0.0";uses:=
+ "org.apache.ibatis.type"
+Import-Package: com.mysql.jdbc;version="[5.1,6)",com.weibangong.mybatis.
+ blueprint;version="[1.0,2)",com.weibangong.mybatis.blueprint.annotation
+ s;version="[1.0,2)",javax.crypto,javax.crypto.spec,javax.sql,org.apache
+ .commons.codec.binary;version="[1.10,2)",org.apache.ibatis.annotations;
+ version="[3.2,4)",org.apache.ibatis.executor;version="[3.2,4)",org.apac
+ he.ibatis.logging;version="[3.2,4)",org.apache.ibatis.mapping;version="
+ [3.2,4)",org.apache.ibatis.ognl;version="[3.2,4)",org.apache.ibatis.plu
+ gin;version="[3.2,4)",org.apache.ibatis.reflection.factory;version="[3.
+ 2,4)",org.apache.ibatis.reflection.wrapper;version="[3.2,4)",org.apache
+ .ibatis.session;version="[3.2,4)",org.apache.ibatis.transaction;version
+ ="[3.2,4)",org.apache.ibatis.transaction.jdbc;version="[3.2,4)",org.apa
+ che.ibatis.type;version="[3.2,4)",org.osgi.framework;version="[1.7,2)",
+ org.slf4j;version="[1.7,2)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-3.0.0.201509101326

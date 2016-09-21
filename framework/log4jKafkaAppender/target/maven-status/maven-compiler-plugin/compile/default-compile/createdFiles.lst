@@ -1,0 +1,2 @@
+org/apache/log4j/expand/kafka/LogEntry.class
+org/apache/log4j/expand/kafka/KafkaLog4jCollector.class

@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1474455014060
+Build-Jdk: 1.8.0_51
+Built-By: haizhi
+Bundle-Activator: com.weibangong.framework.configadmin.Activator
+Bundle-ManifestVersion: 2
+Bundle-Name: framework :: configadmin
+Bundle-SymbolicName: com.weibangong.learn.configadmin
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.weibangong.framework.configadmin;version="1.0.0";use
+ s:="org.osgi.framework"
+Import-Package: org.apache.zookeeper;resolution:=optional;version="[3.4,
+ 4)",org.apache.zookeeper.data;resolution:=optional;version="[3.4,4)",or
+ g.osgi.framework;resolution:=optional;version="[1.7,2)",org.osgi.servic
+ e.cm;resolution:=optional;version="[1.5,2)",org.osgi.util.tracker;resol
+ ution:=optional;version="[1.5,2)",org.slf4j;resolution:=optional;versio
+ n="[1.7,2)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-3.0.0.201509101326

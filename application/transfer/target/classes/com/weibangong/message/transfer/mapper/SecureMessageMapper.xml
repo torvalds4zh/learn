@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weibangong.message.transfer.mapper.SecureMessageMapper">
+
+    <resultMap id="BaseResultMap" type="com.weibangong.message.transfer.model.SecureMessage">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="uuid" jdbcType="VARCHAR" property="uuid"/>
+        <result column="tenant_id" jdbcType="BIGINT" property="tenantId"/>
+        <result column="source_id" jdbcType="BIGINT" property="sourceId"/>
+        <result column="source_type" jdbcType="INTEGER" property="sourceType"/>
+        <result column="target_id" jdbcType="BIGINT" property="targetId"/>
+        <result column="target_type" jdbcType="INTEGER" property="targetType"/>
+        <result column="content_type" jdbcType="INTEGER" property="contentType"/>
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.weibangong.message.transfer.model.SecureMessage"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO secure_message (id, user_id, uuid, tenant_id, source_id, source_type, target_id, target_type, content_type, content, created_at)
+        VALUES (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{uuid,jdbcType=VARCHAR},
+          #{tenantId,jdbcType=BIGINT}, #{sourceId,jdbcType=BIGINT}, #{sourceType,jdbcType=INTEGER},
+          #{targetId,jdbcType=BIGINT}, #{targetType,jdbcType=INTEGER}, #{contentType,jdbcType=INTEGER},
+          #{content,jdbcType=LONGVARCHAR}, #{createdAt,jdbcType=TIMESTAMP})
+    </insert>
+
+</mapper>

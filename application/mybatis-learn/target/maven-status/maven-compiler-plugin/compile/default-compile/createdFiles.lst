@@ -1,3 +1,4 @@
-com/weibangong/mybatis/model/User.class
+com/weibangong/mybatis/handler/FracSecsDateHandler.class
 com/weibangong/mybatis/test/MyBatisFirstTest.class
+com/weibangong/mybatis/model/User.class
 com/weibangong/mybatis/mapper/UserMapper.class

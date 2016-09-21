@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+           xsi:schemaLocation="
+       http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+    <cm:property-placeholder id="transfer" persistent-id="com.weibangong.message.transfer">
+        <cm:default-properties>
+            <cm:property name="mqtt.host" value="tcp://127.0.0.1:1883"/>
+            <cm:property name="mqtt.throttle" value="1000" />
+            <cm:property name="robotSwitch" value="false" />
+            <cm:property name="wbg.token" value=""/>
+        </cm:default-properties>
+    </cm:property-placeholder>
+
+    <reference id="securityDataSource" filter="(instance=security)" interface="javax.sql.DataSource"/>
+
+    <reference id="messageDataSource" filter="(instance=message)" interface="javax.sql.DataSource"/>
+
+    <reference id="workDataSource" filter="(instance=work)" interface="javax.sql.DataSource"/>
+
+    <reference id="secureDataSource" filter="(instance=secure)" interface="javax.sql.DataSource"/>
+
+    <bean id="securitySessionFactory" class="com.weibangong.mybatis.blueprint.SqlSessionFactoryBean">
+        <property name="dataSource" ref="securityDataSource"/>
+        <property name="sourceBundle" ref="blueprintBundle"/>
+        <property name="mappers">
+            <set>
+                <value>com.weibangong.message.transfer.mapper.FeedbackMapper</value>
+                <value>com.weibangong.message.transfer.mapper.PrincipalMapper</value>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="feedbackMapper" class="com.weibangong.mybatis.blueprint.MapperFactory" factory-method="get">
+        <argument index="0" ref="securitySessionFactory"/>
+        <argument index="1" value="com.weibangong.message.transfer.mapper.FeedbackMapper"/>
+    </bean>
+
+    <bean id="principalMapper" class="com.weibangong.mybatis.blueprint.MapperFactory" factory-method="get">
+        <argument index="0" ref="securitySessionFactory"/>
+        <argument index="1" value="com.weibangong.message.transfer.mapper.PrincipalMapper"/>
+    </bean>
+
+    <bean id="messageSessionFactory" class="com.weibangong.mybatis.blueprint.SqlSessionFactoryBean">
+        <property name="dataSource" ref="messageDataSource"/>
+        <property name="sourceBundle" ref="blueprintBundle"/>
+        <property name="mappers">
+            <set>
+                <value>com.weibangong.message.transfer.mapper.ChatMapper</value>
+                <value>com.weibangong.message.transfer.mapper.MessageMapper</value>
+                <value>com.weibangong.message.transfer.mapper.SecureMessageMapper</value>
+            </set>
+        </property>
+        <!-- -->
+        <property name="plugins">
+            <list>
+                <bean class="com.weibangong.mybatis.blueprint.interceptor.SecretInterceptor">
+                    <property name="dataSource" ref="secureDataSource" />
+                </bean>
+            </list>
+        </property>
+
+    </bean>
+
+    <bean id="chatMapper" class="com.weibangong.mybatis.blueprint.MapperFactory" factory-method="get">
+        <argument index="0" ref="messageSessionFactory"/>
+        <argument index="1" value="com.weibangong.message.transfer.mapper.ChatMapper"/>
+    </bean>
+
+    <bean id="messageMapper" class="com.weibangong.mybatis.blueprint.MapperFactory" factory-method="get">
+        <argument index="0" ref="messageSessionFactory"/>
+        <argument index="1" value="com.weibangong.message.transfer.mapper.MessageMapper"/>
+    </bean>
+
+    <bean id="secureMessageMapper" class="com.weibangong.mybatis.blueprint.MapperFactory" factory-method="get">
+        <argument index="0" ref="messageSessionFactory"/>
+        <argument index="1" value="com.weibangong.message.transfer.mapper.SecureMessageMapper"/>
+    </bean>
+
+    <bean id="workSessionFactory" class="com.weibangong.mybatis.blueprint.SqlSessionFactoryBean">
+        <property name="dataSource" ref="workDataSource"/>
+        <property name="sourceBundle" ref="blueprintBundle"/>
+        <property name="mappers">
+            <set>
+                <value>com.weibangong.message.transfer.mapper.DocumentMapper</value>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="documentMapper" class="com.weibangong.mybatis.blueprint.MapperFactory" factory-method="get">
+        <argument index="0" ref="workSessionFactory"/>
+        <argument index="1" value="com.weibangong.message.transfer.mapper.DocumentMapper"/>
+    </bean>
+
+    <bean id="redisSentinelPool" class="com.weibangong.message.transfer.factory.RedisFactory"
+          factory-method="get" destroy-method="destroy">
+        <argument index="0" value="${redis.masterName}"/>
+        <argument index="1" value="${redis.hosts}"/>
+    </bean>
+
+    <bean id="sequenceService" class="com.weibangong.message.transfer.service.SequenceService">
+        <property name="pool" ref="redisSentinelPool"/>
+    </bean>
+
+    <bean id="storageService" class="com.weibangong.message.transfer.service.StorageService">
+        <property name="messageMapper" ref="messageMapper" />
+        <property name="documentMapper" ref="documentMapper" />
+        <property name="sequenceService" ref="sequenceService" />
+        <property name="streamService" ref="streamService" />
+        <property name="pool" ref="redisSentinelPool" />
+    </bean>
+
+    <bean id="assistantMessageRouter" class="com.weibangong.message.transfer.router.AssistantMessageRouter">
+        <property name="sequenceService" ref="sequenceService"/>
+        <property name="chatMapper" ref="chatMapper"/>
+        <property name="principalMapper" ref="principalMapper"/>
+        <property name="feedbackMapper" ref="feedbackMapper"/>
+        <property name="streamService" ref="streamService"/>
+        <property name="robotSwitch" value="${robotSwitch}" />
+    </bean>
+
+    <bean id="groupMessageRouter" class="com.weibangong.message.transfer.router.GroupMessageRouter">
+        <property name="chatMapper" ref="chatMapper"/>
+        <property name="principalMapper" ref="principalMapper"/>
+        <property name="sequenceService" ref="sequenceService"/>
+        <property name="streamService" ref="streamService"/>
+    </bean>
+
+    <bean id="singleMessageRouter" class="com.weibangong.message.transfer.router.SingleMessageRouter">
+        <property name="principalMapper" ref="principalMapper"/>
+        <property name="chatMapper" ref="chatMapper"/>
+        <property name="sequenceService" ref="sequenceService"/>
+        <property name="streamService" ref="streamService"/>
+    </bean>
+
+    <bean id="receiveProcessor" class="com.weibangong.message.transfer.processor.ReceiveProcessor">
+        <property name="principalMapper" ref="principalMapper"/>
+        <property name="storageService" ref="storageService"/>
+        <property name="routers">
+            <map>
+                <!-- 群组(GROUP) -->
+                <entry key="1" value-ref="groupMessageRouter"/>
+                <!-- 部门(ORG) -->
+                <entry key="11" value-ref="groupMessageRouter"/>
+                <!-- 个人(USER) -->
+                <entry key="2" value-ref="singleMessageRouter"/>
+                <entry key="13" value-ref="singleMessageRouter"/>
+                <!-- 微秘(ASSISTANT) -->
+                <entry key="7" value-ref="assistantMessageRouter"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="serviceProcessor" class="com.weibangong.message.transfer.processor.ServiceProcessor">
+        <property name="serviceHandles">
+            <map>
+                <!--消息撤回-->
+                <entry key="messages/cancel" value-ref="cancelService"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="cancelService" class="com.weibangong.message.transfer.handle.CancelServiceHandle">
+        <property name="chatMapper" ref="chatMapper"/>
+        <property name="messageMapper" ref="messageMapper"/>
+        <property name="streamService" ref="streamService"/>
+        <property name="serviceName" value="cancel"/>
+        <property name="documentMapper" ref="documentMapper" />
+        <property name="principalMapper" ref="principalMapper"/>
+    </bean>
+
+    <bean id="msgProcessor" class="com.weibangong.message.transfer.processor.MsgProcessor">
+        <property name="streamService" ref="streamService"/>
+    </bean>
+
+    <bean id="streamService" class="com.weibangong.message.transfer.service.MsgStreamService">
+        <property name="camelContext" ref="transferContext"/>
+    </bean>
+
+    <bean id="queueArgs" class="com.weibangong.message.transfer.args.QueueArgsConfigurer">
+    </bean>
+
+    <bean id="evnArgs" class="com.weibangong.message.transfer.args.EnvironmentArgsConfigure" init-method="init">
+        <property name="encryptSwitch" value="${encrypt.switch}"/>
+        <property name="encryptTenants" value="${encrypt.tenants}"/>
+        <property name="wbgToken" value="${wbg.token}"/>
+    </bean>
+
+    <camelContext id="transferContext" xmlns="http://camel.apache.org/schema/blueprint">
+        <package>com.weibangong.message.transfer</package>
+    </camelContext>
+</blueprint>

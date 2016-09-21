@@ -19,11 +19,12 @@
         <docker.base.image>java8</docker.base.image>
         <docker.base.version>1.1.4</docker.base.version>
 
-        <camel.version>2.15.2</camel.version>
+        <camel.version>2.17.0</camel.version>
         <pax.web.version>4.2.2</pax.web.version>
         <cxf.version>3.1.6</cxf.version>
         <shiro.version>1.2.4</shiro.version>
         <jackson.version>2.4.3</jackson.version>
+        <jedis.version>2.7.2</jedis.version>
     </properties>
 
     <dependencyManagement>
@@ -338,34 +339,34 @@
                                 </bootFeatures>
                             </configuration>
                         </plugin>
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>wagon-maven-plugin</artifactId>
-                            <version>1.0</version>
-                            <executions>
-                                <execution>
-                                    <id>assembly-uploader</id>
-                                    <phase>install</phase>
-                                    <goals>
-                                        <goal>upload</goal>
-                                    </goals>
-                                    <configuration>
-                                        <fromDir>${project.basedir}/target</fromDir>
-                                        <includes>*.tar.gz</includes>
-                                        <url>ftp://package.wbg.space</url>
-                                        <toDir>assembly</toDir>
-                                        <serverId>wbg-assembly</serverId>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                            <!--<dependencies>-->
-                            <!--<dependency>-->
-                            <!--<groupId>org.apache.maven.wagon</groupId>-->
-                            <!--<artifactId>wagon-ftp</artifactId>-->
-                            <!--<version>2.10</version>-->
-                            <!--</dependency>-->
-                            <!--</dependencies>-->
-                        </plugin>
+                        <!--<plugin>-->
+                            <!--<groupId>org.codehaus.mojo</groupId>-->
+                            <!--<artifactId>wagon-maven-plugin</artifactId>-->
+                            <!--<version>1.0</version>-->
+                            <!--<executions>-->
+                                <!--<execution>-->
+                                    <!--<id>assembly-uploader</id>-->
+                                    <!--<phase>install</phase>-->
+                                    <!--<goals>-->
+                                        <!--<goal>upload</goal>-->
+                                    <!--</goals>-->
+                                    <!--<configuration>-->
+                                        <!--<fromDir>${project.basedir}/target</fromDir>-->
+                                        <!--<includes>*.tar.gz</includes>-->
+                                        <!--<url>ftp://package.wbg.space</url>-->
+                                        <!--<toDir>assembly</toDir>-->
+                                        <!--<serverId>wbg-assembly</serverId>-->
+                                    <!--</configuration>-->
+                                <!--</execution>-->
+                            <!--</executions>-->
+                            <!--&lt;!&ndash;<dependencies>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<groupId>org.apache.maven.wagon</groupId>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<artifactId>wagon-ftp</artifactId>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<version>2.10</version>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</dependencies>&ndash;&gt;-->
+                        <!--</plugin>-->
                     </plugins>
                 </pluginManagement>
             </build>
@@ -539,12 +540,12 @@
                         <configuration>
                             <outputDirectory>target/assembly/lib/ext/</outputDirectory>
                             <artifactItems>
-                                <artifactItem>
-                                    <groupId>wbg.space.serve</groupId>
-                                    <artifactId>branding</artifactId>
-                                    <version>1.2.30</version>
-                                    <!--<version>${project.version}</version>-->
-                                </artifactItem>
+                                <!--<artifactItem>-->
+                                    <!--<groupId>com.weibangong.learn</groupId>-->
+                                    <!--<artifactId>branding</artifactId>-->
+                                    <!--<version>1.0-SNAPSHOT</version>-->
+                                    <!--&lt;!&ndash;<version>${project.version}</version>&ndash;&gt;-->
+                                <!--</artifactItem>-->
                                 <artifactItem>
                                     <groupId>javax.mail</groupId>
                                     <artifactId>javax.mail-api</artifactId>
